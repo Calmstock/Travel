@@ -104,6 +104,16 @@
       border-top: 1px solid var(--wine-light);
     }
 
+    .event-block {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+    .event-block:first-child {
+      border-top: none;
+      padding-top: 4px;
+    }
+
     h3 {
       margin: 14px 0 6px 0;
       font-size: 14px;
@@ -126,6 +136,30 @@
       border-radius: 6px;
       font-size: 12px;
       margin-right: 6px;
+    }
+
+    /* Address Link Button */
+    .address-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--wine);
+      text-decoration: none;
+      font-weight: 500;
+      background: var(--wine-light);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-top: 6px;
+      border: 1px solid rgba(107, 29, 47, 0.15);
+      transition: background-color 0.15s ease;
+    }
+    .address-link .material-symbols-outlined {
+      font-size: 16px;
+      color: var(--terracotta);
+    }
+    .address-link:active {
+      background: #E8D8DC;
     }
 
     /* Checklist */
@@ -231,13 +265,25 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><strong>Confirmation:</strong> HXDN3N[cite: 4]</p>
-        <h3><span class="material-symbols-outlined">flight_takeoff</span> Outbound — Sun Aug 23</h3>
-        <p><strong>UA 726:</strong> BOS 9:20 AM &rarr; SFO 12:43 PM (Nonstop)[cite: 4]</p>
-        <p><strong>Seats:</strong> Brandon 12D | Jennifer, Wylie, Susan 15A/B/C[cite: 4]</p>
-        <h3><span class="material-symbols-outlined">flight_land</span> Return — Sat Aug 29</h3>
-        <p><strong>UA 2356:</strong> SFO 10:16 AM &rarr; BOS 7:10 PM (Nonstop)[cite: 4]</p>
-        <p><strong>Seats:</strong> Brandon 9D | Jennifer, Wylie, Susan 24A/B/C[cite: 4]</p>
+        <p><strong>Confirmation:</strong> HXDN3N</p>
+        
+        <div class="event-block">
+          <h3><span class="material-symbols-outlined">flight_takeoff</span> Outbound — Sun Aug 23</h3>
+          <p><strong>UA 726:</strong> BOS 9:20 AM &rarr; SFO 12:43 PM (Nonstop)</p>
+          <p><strong>Seats:</strong> Brandon 12D | Jennifer, Wylie, Susan 15A/B/C</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Boston+Logan+International+Airport" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Boston Logan Terminal B
+          </a>
+        </div>
+
+        <div class="event-block">
+          <h3><span class="material-symbols-outlined">flight_land</span> Return — Sat Aug 29</h3>
+          <p><strong>UA 2356:</strong> SFO 10:16 AM &rarr; BOS 7:10 PM (Nonstop)</p>
+          <p><strong>Seats:</strong> Brandon 9D | Jennifer, Wylie, Susan 24A/B/C</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=San+Francisco+International+Airport" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> San Francisco Int'l Airport (SFO)
+          </a>
+        </div>
       </div>
     </details>
 
@@ -247,13 +293,16 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><strong>Confirmation:</strong> 9738348672[cite: 3]</p>
-        <p><strong>Vehicle:</strong> Midsize SUV (Toyota RAV4 or similar)[cite: 3]</p>
-        <p><strong>Pickup:</strong> Sun 8/23 @ SFO Rental Car Center (after 12:43 PM flight)[cite: 3, 4]</p>
-        <p><strong>Return Target:</strong> Sat 8/29 @ 8:15–8:30 AM[cite: 3, 4]</p>
-        <p><strong>Details:</strong> Unlimited miles | 1 Booster seat reserved ($83.94)[cite: 3]</p>
-        <p><strong>Total:</strong> $540.17 ($200 deposit hold on card)[cite: 3]</p>
-        <p><strong>Required at counter:</strong> Physical Driver's License & payment card[cite: 1, 3]</p>
+        <p><strong>Confirmation:</strong> 9738348672</p>
+        <p><strong>Vehicle:</strong> Midsize SUV (Toyota RAV4 or similar)</p>
+        <p><strong>Pickup:</strong> Sun 8/23 @ SFO Rental Car Center (after 12:43 PM flight)</p>
+        <p><strong>Return Target:</strong> Sat 8/29 @ 8:15–8:30 AM</p>
+        <p><strong>Details:</strong> Unlimited miles | 1 Booster seat reserved ($83.94)</p>
+        <p><strong>Total:</strong> $540.17 ($200 deposit hold on card)</p>
+        <p><strong>Required at counter:</strong> Physical Driver's License & payment card</p>
+        <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=SFO+Rental+Car+Center+780+McDonnell+Rd+San+Francisco+CA" target="_blank">
+          <span class="material-symbols-outlined">location_on</span> SIXT SFO · 780 McDonnell Rd, San Francisco
+        </a>
       </div>
     </details>
 
@@ -263,12 +312,15 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><strong>Address:</strong> 139 Treehaven Court, Kenwood, CA 95452[cite: 5]</p>
-        <p><strong>Gate Keypad Code:</strong> #00931[cite: 5]</p>
-        <p><strong>Wi-Fi:</strong> <code>treehaven</code> / Password: <code>sophielila</code>[cite: 5]</p>
-        <p><strong>Property Manager Contact:</strong> Nicole (805) 680-5934[cite: 5]</p>
-        <p><strong>Times:</strong> Check-in 4:00 PM | Check-out 11:00 AM[cite: 5, 6]</p>
-        <p><strong>Pool/Spa Cover Code:</strong> 1234 &#10004; (Hold button down to open/close)[cite: 5]</p>
+        <p><strong>Address:</strong> 139 Treehaven Court, Kenwood, CA 95452</p>
+        <p><strong>Gate Keypad Code:</strong> #00931</p>
+        <p><strong>Wi-Fi:</strong> <code>treehaven</code> / Password: <code>sophielila</code></p>
+        <p><strong>Property Manager Contact:</strong> Nicole (805) 680-5934</p>
+        <p><strong>Times:</strong> Check-in 4:00 PM | Check-out 11:00 AM</p>
+        <p><strong>Pool/Spa Cover Code:</strong> 1234 &#10004; (Hold button down to open/close)</p>
+        <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=139+Treehaven+Court+Kenwood+CA+95452" target="_blank">
+          <span class="material-symbols-outlined">location_on</span> Open Villa in Google Maps
+        </a>
       </div>
     </details>
 
@@ -278,11 +330,14 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><strong>Hotel:</strong> Riu Plaza Fisherman's Wharf[cite: 2]</p>
-        <p><strong>Address:</strong> 2500 Mason Street, San Francisco, CA[cite: 2]</p>
-        <p><strong>Phone:</strong> +1 415-362-5500[cite: 2]</p>
-        <p><strong>Rooms:</strong> 3 rooms (2 Queens each) | Pay at hotel ($1944 total)[cite: 2]</p>
-        <p><strong>Times:</strong> Check-in 3:00 PM | Check-out 12:00 PM[cite: 2]</p>
+        <p><strong>Hotel:</strong> Riu Plaza Fisherman's Wharf</p>
+        <p><strong>Address:</strong> 2500 Mason Street, San Francisco, CA 94133</p>
+        <p><strong>Phone:</strong> +1 415-362-5500</p>
+        <p><strong>Rooms:</strong> 3 rooms (2 Queens each) | Pay at hotel ($1,944 total)</p>
+        <p><strong>Times:</strong> Check-in 3:00 PM | Check-out 12:00 PM</p>
+        <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Riu+Plaza+2500+Mason+St+San+Francisco+CA" target="_blank">
+          <span class="material-symbols-outlined">location_on</span> Open Riu Plaza in Google Maps
+        </a>
       </div>
     </details>
 
@@ -297,10 +352,34 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><span class="badge">9:20 AM</span> UA 726 Flight BOS &rarr; SFO[cite: 4, 6]</p>
-        <p><span class="badge">12:43 PM</span> Land SFO, shuttle to SIXT Rental Car Center[cite: 3, 4, 6]</p>
-        <p><span class="badge">4:00 PM</span> Check-in @ Sonoma Valley Villa (Gate #00931)[cite: 5, 6]</p>
-        <p>Kenwood Market groceries, pool/spa downtime, casual evening[cite: 5, 6].</p>
+        <div class="event-block">
+          <p><span class="badge">9:20 AM</span> UA 726 Flight BOS &rarr; SFO</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Boston+Logan+International+Airport" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Boston Logan Airport
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">12:43 PM</span> Land SFO, AirTrain to SIXT Rental Car Center</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=SFO+Rental+Car+Center+780+McDonnell+Rd+San+Francisco+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> SIXT SFO · 780 McDonnell Rd
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">4:00 PM</span> Check-in @ Sonoma Valley Villa (Gate #00931)</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=139+Treehaven+Court+Kenwood+CA+95452" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> 139 Treehaven Ct, Kenwood, CA
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Evening</span> Groceries & Dinner</p>
+          <p>Kenwood Market for quick basics, pool/spa downtime, light dinner.</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Kenwood+Market+8910+Sonoma+Hwy+Kenwood+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Kenwood Market · 8910 Sonoma Hwy
+          </a>
+        </div>
       </div>
     </details>
 
@@ -310,9 +389,23 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><span class="badge">Lunch</span> VJB Cellars (Kenwood) — piazza, tasting, pizza & deli[cite: 5, 6]</p>
-        <p><span class="badge">3:00 PM</span> <strong>Benziger Tractor Tour</strong> (Glen Ellen)[cite: 1, 6]</p>
-        <p>Evening pool/spa & casual villa dinner[cite: 6].</p>
+        <div class="event-block">
+          <p><span class="badge">Lunch</span> VJB Cellars — Piazza, wine tasting, pizza & deli</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=VJB+Cellars+60+Shaw+Ave+Kenwood+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> VJB Cellars · 60 Shaw Ave, Kenwood
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">3:00 PM</span> <strong>Benziger Family Winery Tractor Tour</strong></p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Benziger+Family+Winery+1883+London+Ranch+Rd+Glen+Ellen+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Benziger Winery · 1883 London Ranch Rd, Glen Ellen
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Evening</span> Pool, spa & casual dinner at the villa.</p>
+        </div>
       </div>
     </details>
 
@@ -322,9 +415,17 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><span class="badge">Day Event</span> Safari West 3-hr tour (Santa Rosa)[cite: 6]</p>
-        <p>Outdoors/dusty day: Wear Merrell slip-ons, hat, sunscreen[cite: 1, 6].</p>
-        <p>Unstructured afternoon back at villa pool[cite: 6].</p>
+        <div class="event-block">
+          <p><span class="badge">Day Event</span> Safari West 3-hour tour</p>
+          <p>Outdoors/dusty day: Wear Merrell slip-ons, hat, sunscreen, water.</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Safari+West+3115+Porter+Creek+Rd+Santa+Rosa+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Safari West · 3115 Porter Creek Rd, Santa Rosa
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Afternoon</span> Unstructured downtime & pool back at Kenwood villa.</p>
+        </div>
       </div>
     </details>
 
@@ -334,9 +435,23 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><span class="badge">11:00 AM</span> Charles M. Schulz Museum (Santa Rosa)[cite: 6]</p>
-        <p>Optional: Children's Museum of Sonoma County[cite: 6].</p>
-        <p><em>Laundry night at villa[cite: 1, 6].</em></p>
+        <div class="event-block">
+          <p><span class="badge">11:00 AM</span> Charles M. Schulz Museum</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Charles+M+Schulz+Museum+2301+Hardies+Ln+Santa+Rosa+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Schulz Museum · 2301 Hardies Ln, Santa Rosa
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Optional</span> Children's Museum of Sonoma County</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Childrens+Museum+of+Sonoma+County+1835+W+Steele+Ln+Santa+Rosa+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Children's Museum · 1835 W Steele Ln, Santa Rosa
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Night</span> <em>Small laundry night at villa before tomorrow's checkout.</em></p>
+        </div>
       </div>
     </details>
 
@@ -346,10 +461,30 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><span class="badge">11:00 AM</span> Villa Check-out[cite: 6]</p>
-        <p><span class="badge">Midday</span> Muir Woods National Monument (Parking Reserved)[cite: 1, 6]</p>
-        <p><span class="badge">3:00 PM</span> Hotel Riu Plaza SF Check-in[cite: 2, 6]</p>
-        <p>Explore Fisherman's Wharf or Cable Car Museum[cite: 2, 6].</p>
+        <div class="event-block">
+          <p><span class="badge">11:00 AM</span> Kenwood Villa Check-out</p>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Midday</span> Muir Woods National Monument (Parking Reserved)</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Muir+Woods+National+Monument+Mill+Valley+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Muir Woods · Mill Valley, CA
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">3:00 PM</span> Hotel Riu Plaza SF Check-in</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Riu+Plaza+2500+Mason+St+San+Francisco+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Riu Plaza · 2500 Mason St, San Francisco
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Optional</span> Cable Car Museum or Fisherman's Wharf Walk</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Cable+Car+Museum+1201+Mason+St+San+Francisco+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Cable Car Museum · 1201 Mason St
+          </a>
+        </div>
       </div>
     </details>
 
@@ -359,8 +494,19 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><span class="badge">10:00 AM</span> Exploratorium (Pier 15)[cite: 6]</p>
-        <p><span class="badge">5:30 PM</span> <strong>Dinner:</strong> Fog Harbor Fish House (Pier 39)[cite: 6]</p>
+        <div class="event-block">
+          <p><span class="badge">10:00 AM</span> Exploratorium</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Exploratorium+Pier+15+San+Francisco+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Exploratorium · Pier 15, Embarcadero
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">5:30 PM</span> <strong>Dinner: Fog Harbor Fish House</strong></p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=Fog+Harbor+Fish+House+Pier+39+San+Francisco+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Fog Harbor · Pier 39, Fisherman's Wharf
+          </a>
+        </div>
       </div>
     </details>
 
@@ -370,9 +516,17 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <p><span class="badge">8:15 AM</span> Return SIXT rental car at SFO[cite: 3, 4, 6]</p>
-        <p><span class="badge">10:16 AM</span> UA 2356 Flight SFO &rarr; BOS[cite: 4, 6]</p>
-        <p><span class="badge">7:10 PM</span> Land BOS, return to Terminal B parking[cite: 4, 6].</p>
+        <div class="event-block">
+          <p><span class="badge">8:15 AM</span> Return SIXT car at SFO Rental Car Center</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=SFO+Rental+Car+Center+780+McDonnell+Rd+San+Francisco+CA" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> SIXT SFO Return · 780 McDonnell Rd
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">10:16 AM</span> UA 2356 Flight SFO &rarr; BOS</p>
+          <p><span class="badge">7:10 PM</span> Land BOS, return to Terminal B parking.</p>
+        </div>
       </div>
     </details>
 
@@ -387,11 +541,11 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <div class="check-item"><input type="checkbox" id="d1" onchange="toggleCheck(this)"><label for="d1">Physical Driver's License (Required for SIXT)[cite: 1, 3]</label></div>
-        <div class="check-item"><input type="checkbox" id="d2" onchange="toggleCheck(this)"><label for="d2">Credit Card for SIXT / Riu Hotel[cite: 1, 2, 3]</label></div>
-        <div class="check-item"><input type="checkbox" id="d3" onchange="toggleCheck(this)"><label for="d3">United Boarding Passes[cite: 1, 4]</label></div>
-        <div class="check-item"><input type="checkbox" id="d4" onchange="toggleCheck(this)"><label for="d4">Muir Woods Parking Reservation[cite: 1, 6]</label></div>
-        <div class="check-item"><input type="checkbox" id="d5" onchange="toggleCheck(this)"><label for="d5">Airbnb Door Code (sent 3 days prior)[cite: 1, 5]</label></div>
+        <div class="check-item"><input type="checkbox" id="d1" onchange="toggleCheck(this)"><label for="d1">Physical Driver's License (Required for SIXT)</label></div>
+        <div class="check-item"><input type="checkbox" id="d2" onchange="toggleCheck(this)"><label for="d2">Credit Card for SIXT / Riu Hotel</label></div>
+        <div class="check-item"><input type="checkbox" id="d3" onchange="toggleCheck(this)"><label for="d3">United Boarding Passes</label></div>
+        <div class="check-item"><input type="checkbox" id="d4" onchange="toggleCheck(this)"><label for="d4">Muir Woods Parking Reservation</label></div>
+        <div class="check-item"><input type="checkbox" id="d5" onchange="toggleCheck(this)"><label for="d5">Airbnb Door Code (sent 3 days prior)</label></div>
       </div>
     </details>
 
@@ -401,10 +555,10 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <div class="check-item"><input type="checkbox" id="p1" onchange="toggleCheck(this)"><label for="p1">Stylish sneakers[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="p2" onchange="toggleCheck(this)"><label for="p2">Lightweight pants / chinos[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="p3" onchange="toggleCheck(this)"><label for="p3">T-shirt & Light Quarter-zip[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="p4" onchange="toggleCheck(this)"><label for="p4">Mission Workshop backpack[cite: 1]</label></div>
+        <div class="check-item"><input type="checkbox" id="p1" onchange="toggleCheck(this)"><label for="p1">Stylish sneakers</label></div>
+        <div class="check-item"><input type="checkbox" id="p2" onchange="toggleCheck(this)"><label for="p2">Lightweight pants / chinos</label></div>
+        <div class="check-item"><input type="checkbox" id="p3" onchange="toggleCheck(this)"><label for="p3">T-shirt & Light Quarter-zip</label></div>
+        <div class="check-item"><input type="checkbox" id="p4" onchange="toggleCheck(this)"><label for="p4">Mission Workshop backpack</label></div>
       </div>
     </details>
 
@@ -414,13 +568,13 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <div class="check-item"><input type="checkbox" id="f1" onchange="toggleCheck(this)"><label for="f1">Slip-on Merrells (Safari West / Muir Woods)[cite: 1, 6]</label></div>
-        <div class="check-item"><input type="checkbox" id="f2" onchange="toggleCheck(this)"><label for="f2">Crocs (Villa / Pool)[cite: 1, 5]</label></div>
-        <div class="check-item"><input type="checkbox" id="f3" onchange="toggleCheck(this)"><label for="f3">Sunglasses & Hat[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="f4" onchange="toggleCheck(this)"><label for="f4">Sunscreen & Lip Balm[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="f5" onchange="toggleCheck(this)"><label for="f5">Refillable Water Bottle[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="f6" onchange="toggleCheck(this)"><label for="f6">Swimsuit[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="f7" onchange="toggleCheck(this)"><label for="f7">Lightweight Wind Shell (SF / Muir Woods)[cite: 1, 6]</label></div>
+        <div class="check-item"><input type="checkbox" id="f1" onchange="toggleCheck(this)"><label for="f1">Slip-on Merrells (Safari West / Muir Woods)</label></div>
+        <div class="check-item"><input type="checkbox" id="f2" onchange="toggleCheck(this)"><label for="f2">Crocs (Villa / Pool)</label></div>
+        <div class="check-item"><input type="checkbox" id="f3" onchange="toggleCheck(this)"><label for="f3">Sunglasses & Hat</label></div>
+        <div class="check-item"><input type="checkbox" id="f4" onchange="toggleCheck(this)"><label for="f4">Sunscreen & Lip Balm</label></div>
+        <div class="check-item"><input type="checkbox" id="f5" onchange="toggleCheck(this)"><label for="f5">Refillable Water Bottle</label></div>
+        <div class="check-item"><input type="checkbox" id="f6" onchange="toggleCheck(this)"><label for="f6">Swimsuit</label></div>
+        <div class="check-item"><input type="checkbox" id="f7" onchange="toggleCheck(this)"><label for="f7">Lightweight Wind Shell (SF / Muir Woods)</label></div>
       </div>
     </details>
 
@@ -430,10 +584,10 @@
         <span class="material-symbols-outlined chevron">expand_more</span>
       </summary>
       <div class="accordion-body">
-        <div class="check-item"><input type="checkbox" id="e1" onchange="toggleCheck(this)"><label for="e1">iPhone & Phone charging cable[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="e2" onchange="toggleCheck(this)"><label for="e2">Portable battery pack[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="e3" onchange="toggleCheck(this)"><label for="e3">AirPods / Headphones[cite: 1]</label></div>
-        <div class="check-item"><input type="checkbox" id="e4" onchange="toggleCheck(this)"><label for="e4">Apple Watch / Kid device chargers[cite: 1]</label></div>
+        <div class="check-item"><input type="checkbox" id="e1" onchange="toggleCheck(this)"><label for="e1">iPhone & Phone charging cable</label></div>
+        <div class="check-item"><input type="checkbox" id="e2" onchange="toggleCheck(this)"><label for="e2">Portable battery pack</label></div>
+        <div class="check-item"><input type="checkbox" id="e3" onchange="toggleCheck(this)"><label for="e3">AirPods / Headphones</label></div>
+        <div class="check-item"><input type="checkbox" id="e4" onchange="toggleCheck(this)"><label for="e4">Apple Watch / Kid device chargers</label></div>
       </div>
     </details>
 
