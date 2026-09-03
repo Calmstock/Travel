@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Woodstock NH Mobile Companion</title>
+  
+  <!-- Material Symbols & NomadKit Typography -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* NomadKit Palette */
+      --sand-primary: #D4A373;
+      --sand-light: #FAF3EC;
+      --sand-dark: #B88555;
+      
+      --ocean-secondary: #0891B2;
+      --ocean-light: #E0F2FE;
+      
+      --forest-tertiary: #166534;
+      --forest-light: #DCFCE7;
+      
+      --bg-canvas: #FFFDF7;
+      --surface-card: #FFFFFF;
+      --border-color: #E2DCD2;
+      
+      --text-main: #2A2723;
+      --text-muted: #78716C;
+      
+      --status-warning: #CA8A04;
+      --status-warning-bg: #FEF9C3;
+      --status-error: #DC2626;
+      --status-error-bg: #FEE2E2;
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-pill: 9999px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      margin: 0;
+      padding: 0 0 84px 0;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      background: var(--surface-card);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    header .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    header h1 .material-symbols-outlined {
+      color: var(--sand-primary);
+      font-size: 22px;
+    }
+    .badge-header {
+      background: var(--sand-light);
+      color: var(--sand-dark);
+      border: 1px solid var(--sand-primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Layout & Tabs */
+    .tab-content { display: none; padding: 16px; max-width: 600px; margin: 0 auto; }
+    .tab-content.active { display: block; }
+
+    /* Cards & Accordions */
+    details {
+      background: var(--surface-card);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    details[open] {
+      border-color: var(--sand-primary);
+      box-shadow: 0 3px 12px rgba(212, 163, 115, 0.15);
+    }
+    summary {
+      list-style: none;
+      padding: 14px 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: var(--surface-card);
+    }
+    details[open] summary {
+      background: var(--sand-light);
+      border-bottom: 1px solid var(--border-color);
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary .summary-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    summary .material-symbols-outlined.icon-main {
+      color: var(--sand-primary);
+      font-size: 20px;
+    }
+    summary .material-symbols-outlined.chevron {
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+    details[open] summary .material-symbols-outlined.chevron {
+      transform: rotate(180deg);
+      color: var(--sand-primary);
+    }
+    
+    .accordion-body {
+      padding: 14px 16px 16px 16px;
+    }
+
+    /* Event & Section Elements */
+    .event-block {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .event-block:first-child {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    h3 {
+      font-family: 'Outfit', sans-serif;
+      margin: 12px 0 6px 0;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.1px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    p, li { font-size: 14px; line-height: 1.5; margin: 5px 0; color: var(--text-main); }
+    ul { padding-left: 20px; margin: 4px 0; }
+
+    /* Badges & Chips */
+    .badge {
+      display: inline-block;
+      background: var(--sand-light);
+      color: var(--sand-dark);
+      border: 1px solid var(--sand-primary);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      margin-right: 6px;
+    }
+    .badge-ocean {
+      display: inline-block;
+      background: var(--ocean-light);
+      color: var(--ocean-secondary);
+      border: 1px solid var(--ocean-secondary);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      margin-right: 6px;
+    }
+    .badge-forest {
+      display: inline-block;
+      background: var(--forest-light);
+      color: var(--forest-tertiary);
+      border: 1px solid var(--forest-tertiary);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      margin-right: 6px;
+    }
+    .badge-warning {
+      display: inline-block;
+      background: var(--status-warning-bg);
+      color: var(--status-warning);
+      border: 1px solid var(--status-warning);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      margin-right: 6px;
+    }
+    .badge-error {
+      display: inline-block;
+      background: var(--status-error-bg);
+      color: var(--status-error);
+      border: 1px solid var(--status-error);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      margin-right: 6px;
+    }
+
+    /* Interactive Buttons & Copy */
+    .address-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--ocean-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      background: var(--ocean-light);
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      margin-top: 6px;
+      border: 1px solid var(--ocean-secondary);
+      transition: all 0.15s ease;
+    }
+    .address-link .material-symbols-outlined { font-size: 16px; }
+    .address-link:active { opacity: 0.8; transform: translateY(1px); }
+
+    .copy-btn {
+      background: var(--surface-card);
+      border: 1px solid var(--sand-primary);
+      color: var(--sand-dark);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 6px;
+    }
+    .copy-btn:active { background: var(--sand-light); }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: var(--sand-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Checklists */
+    .check-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-item input {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      accent-color: var(--sand-primary);
+      cursor: pointer;
+    }
+    .check-item.done label {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* Map Frame */
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 50vh;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .map-container iframe { width: 100%; height: 100%; border: 0; }
+    
+    .btn-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      text-align: center;
+      background: var(--sand-primary);
+      color: #FFFFFF;
+      border: none;
+      text-decoration: none;
+      padding: 12px 0;
+      border-radius: var(--radius-pill);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 12px;
+      box-shadow: 0 2px 8px rgba(212, 163, 115, 0.3);
+    }
+
+    /* Bottom Nav Bar */
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      border-top: 1px solid var(--border-color);
+      height: 64px;
+      z-index: 1000;
+    }
+    .nav-btn {
+      flex: 1;
+      border: none;
+      background: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 0;
+      letter-spacing: 0.3px;
+    }
+    .nav-btn.active {
+      color: var(--sand-primary);
+      font-weight: 700;
+    }
+    .nav-btn .material-symbols-outlined {
+      font-size: 22px;
+      margin-bottom: 2px;
+      color: var(--text-muted);
+    }
+    .nav-btn.active .material-symbols-outlined {
+      color: var(--sand-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <h1><span class="material-symbols-outlined">cabin</span> Woodstock, NH</h1>
+      <span class="badge-header">Sep 4–7, 2026</span>
+    </div>
+  </header>
+
+  <!-- LOGISTICS TAB -->
+  <div id="logistics" class="tab-content active">
+    
+    <details open>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">edit_note</span> Departure Morning Notes</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <p>Use this card to log final departure morning updates before heading north to Woodstock.</p>
+        <div class="event-block">
+          <p><strong>Departure Target:</strong> Friday @ 1:30 PM (Drive ~2 hrs from home)</p>
+          <p><strong>Pending Host Intel:</strong> Check-in keypad code & Wi-Fi details arrive via Airbnb messaging prior to 4:00 PM check-in.</p>
+        </div>
+      </div>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">cloud</span> Weather Forecast</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="event-block">
+          <p><span class="badge">Fri Sep 4</span> <strong>58° / 70°F</strong> — 40% Chance of evening light rain.</p>
+        </div>
+        <div class="event-block">
+          <p><span class="badge-warning">Sat Sep 5</span> <strong>52° / 65°F</strong> — 60% Light rain throughout day. Pack rain jackets/shells!</p>
+        </div>
+        <div class="event-block">
+          <p><span class="badge-forest">Sun Sep 6</span> <strong>48° / 65°F</strong> — Rain unlikely (40% cloud cover). Cool morning.</p>
+        </div>
+        <div class="event-block">
+          <p><span class="badge-forest">Mon Sep 7</span> <strong>48° / 68°F</strong> — Partly sunny for drive home.</p>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">confirmation_number</span> Reservations & Tickets</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <p><span class="badge-ocean">Flume Gorge</span> Reservation required for Sat 9:00 AM slots ($16–$18).</p>
+        <p><span class="badge-ocean">Clark's Bears</span> Buy tickets on Saturday for Sun 9:30 AM arrival ($33).</p>
+        <p><span class="badge-ocean">Lost River Caves</span> Reserve tickets Saturday for Sun afternoon ($25).</p>
+        <p><span class="badge-forest">Motorsports Park</span> No advance tickets required ($30 family pass at gate).</p>
+        <p><span class="badge-forest">Schilling Beer Co.</span> No reservations required (walk-in seating & deck).</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- ITINERARY TAB -->
+  <div id="itinerary" class="tab-content">
+
+    <details open>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">directions_car</span> Fri Sep 4 — Arrival & House Dinner</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="event-block">
+          <p><span class="badge">1:30 PM</span> Depart for North Woodstock (~2 hr drive).</p>
+        </div>
+        <div class="event-block">
+          <p><span class="badge">4:00 PM</span> <strong>Check-in @ Riverfront Farmhouse</strong></p>
+          <p style="font-size: 13px; color: var(--text-muted);">Self check-in via keypad on front door.</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=13+Daniel+Webster+Hwy+North+Woodstock+NH+03262" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> 13 Daniel Webster Hwy, North Woodstock
+          </a>
+        </div>
+        <div class="event-block">
+          <p><span class="badge-forest">Evening</span> <strong>House Dinner: Homemade Ravioli</strong></p>
+          <p>Unpack, explore the riverfront yard & sunroom, relax by the Pemigewasset River.</p>
+        </div>
+      </div>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">water_drop</span> Sat Sep 5 — Gorge, Brewery & Racing</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="event-block">
+          <p><span class="badge">9:00 AM</span> <strong>Flume Gorge Boardwalk Loop</strong></p>
+          <p style="font-size: 13px;">Waterfalls, covered bridges, granite gorge walls. <em>(Advance reservation required)</em></p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=852+Daniel+Webster+Hwy+Lincoln+NH+03251" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Flume Gorge · 852 Daniel Webster Hwy
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge-ocean">12:00 PM</span> <strong>Lunch: Schilling Beer Company</strong></p>
+          <p style="font-size: 13px;">European-style craft lagers & wood-fired pizza on the Ammonoosuc River deck.</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=18+Mill+St+Littleton+NH+03561" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Schilling Beer Co · 18 Mill St, Littleton
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Afternoon</span> <strong>Cascade Park & Scoop Dogg's Ice Cream</strong></p>
+          <p style="font-size: 13px;">1 minute from house. River park & local ice cream.</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=130+Main+St+North+Woodstock+NH+03262" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Cascade Park · 130 Main St
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Dinner</span> <strong>Tacos at Airbnb OR Gypsy Cafe</strong></p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=117+Main+St+Lincoln+NH+03251" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Gypsy Cafe · 117 Main St, Lincoln
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge-warning">6:00 PM – 10:00 PM</span> <strong>White Mountain Motorsports Park</strong></p>
+          <p style="font-size: 13px;">Mini Late Models Championship, V8 stock cars & NELCAR Legends! Bring ear muff protection & stadium seat cushions.</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=463+Daniel+Webster+Hwy+North+Woodstock+NH+03262" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Motorsports Park · 463 Daniel Webster Hwy
+          </a>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">attractions</span> Sun Sep 6 — Bears, Caves & Golf</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="event-block">
+          <p><span class="badge">9:30 AM</span> <strong>Clark's Bears Theme Park</strong></p>
+          <p style="font-size: 13px;">Steam train rides (half-hour from 10:30), Circus Acts (10, 12, 2), Bear Shows (11, 1, 3).</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=110+Daniel+Webster+Hwy+Lincoln+NH+03251" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Clark's Bears · 110 Daniel Webster Hwy
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Lunch</span> Return to Airbnb for lunch break.</p>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Afternoon</span> <strong>Lost River Gorge & Boulder Caves</strong></p>
+          <p style="font-size: 13px;">1-mile boardwalk trail, suspension bridges, waterfalls & 11 squeeze-in boulder caves.</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=1712+Lost+River+Rd+North+Woodstock+NH+03262" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Lost River Gorge · 1712 Lost River Rd
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Late PM</span> <strong>Pirate's Cove Adventure Mini-Golf</strong></p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=127+Main+St+Lincoln+NH+03251" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Pirate's Cove · 127 Main St, Lincoln
+          </a>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge">Dinner</span> Gypsy Cafe (Grilled cheese fondue & quesadillas) or Tacos at house.</p>
+        </div>
+
+        <div class="event-block">
+          <p><span class="badge-ocean">Optional Evening Event</span> <strong>Waterville Valley End of Summer Bash</strong></p>
+          <p style="font-size: 13px;">5:00 PM Charity Duck Race on Corcoran Pond, live music, 8:30 PM Fireworks! (~25 min drive).</p>
+          <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=33+Village+Rd+Waterville+Valley+NH+03215" target="_blank">
+            <span class="material-symbols-outlined">location_on</span> Waterville Valley Town Square
+          </a>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">logout</span> Mon Sep 7 — Departure</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="event-block">
+          <p><span class="badge-warning">10:00 AM</span> <strong>Check-out Target</strong></p>
+          <p style="font-size: 13px;">Complete check-out rules: Gather & throw away trash, load and start dishwasher, pick up all pet waste in yard.</p>
+        </div>
+        <div class="event-block">
+          <p><span class="badge-forest">12:30 PM</span> Estimated arrival back home.</p>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- DWELLINGS TAB -->
+  <div id="dwellings" class="tab-content">
+    
+    <details open>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">home</span> Woodstock Riverfront Farmhouse</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <p><strong>Address:</strong> 13 Daniel Webster Highway, North Woodstock, NH 03262</p>
+        <p><strong>Property:</strong> 3 BR / 1.5 BA rustic riverfront farmhouse on Pemigewasset River.</p>
+        <a class="address-link" href="https://www.google.com/maps/search/?api=1&query=13+Daniel+Webster+Hwy+North+Woodstock+NH+03262" target="_blank">
+          <span class="material-symbols-outlined">location_on</span> Open in Google Maps
+        </a>
+
+        <div class="event-block">
+          <h3><span class="material-symbols-outlined">key</span> Access & Credentials</h3>
+          <p><strong>Check-In:</strong> 4:00 PM | <strong>Check-Out:</strong> 10:00 AM</p>
+          <p><strong>Keypad Lock Code:</strong> <code>[Pending Airbnb Host]</code> <button class="copy-btn" onclick="copyText('[Pending Airbnb Host]')">Copy</button></p>
+          <p><strong>Wi-Fi Network:</strong> <code>[Pending Airbnb Host]</code> <button class="copy-btn" onclick="copyText('[Pending Airbnb Host]')">Copy</button></p>
+          <p><strong>Wi-Fi Password:</strong> <code>[Pending Airbnb Host]</code> <button class="copy-btn" onclick="copyText('[Pending Airbnb Host]')">Copy</button></p>
+        </div>
+
+        <div class="event-block">
+          <h3><span class="material-symbols-outlined">warning</span> Critical House Rules</h3>
+          <p><span class="badge-error">SEPTIC SYSTEM</span> Do NOT flush wipes, tampons, or sanitary items. Do NOT put coffee grounds or kitchen grease down sink drains.</p>
+          <p><span class="badge-error">WOODSTOVE DECORATIVE ONLY</span> Woodstove is strictly unavailable for guest use due to insurance rules. Leave wood stack on tile preserved.</p>
+          <p><span class="badge-warning">QUIET HOURS</span> 10:00 PM – 7:00 AM (Family neighborhood).</p>
+          <p><span class="badge">OCCUPANCY</span> Max 10 guests total | Absolutely NO parties or smoking.</p>
+        </div>
+
+        <div class="event-block">
+          <h3><span class="material-symbols-outlined">pets</span> Pet Agreement Rules (2 Dogs Max)</h3>
+          <p>• Dogs must be 1+ year old, housebroken, spayed/neutered, and flea-treated.</p>
+          <p>• Do NOT use white linens/towels to wipe down dirty or wet dogs.</p>
+          <p>• Pick up and dispose of all pet yard waste immediately.</p>
+          <p>• Do not leave dogs barking or causing neighbor disturbance.</p>
+        </div>
+
+        <div class="event-block">
+          <h3><span class="material-symbols-outlined">coffee</span> Farmhouse Layout & Amenities</h3>
+          <p>• <strong>Master Bedroom:</strong> King bed with Nespresso coffee bar & private rooftop river deck.</p>
+          <p>• <strong>Bedrooms 2 & 3:</strong> One Queen room; One room with 2 Twins + trundles.</p>
+          <p>• <strong>Sunroom:</strong> Attached to eat-in kitchen with river deck access & summer futon.</p>
+          <p>• <strong>Outdoors:</strong> Direct water staircase down to river, outdoor dining table, and firepit.</p>
+        </div>
+
+        <div class="event-block">
+          <h3><span class="material-symbols-outlined">task_alt</span> Check-Out Tasks (10:00 AM)</h3>
+          <p>1. Gather and throw away all trash in outdoor bins.</p>
+          <p>2. Load and start the dishwasher.</p>
+          <p>3. Pick up and properly dispose of all pet waste in the yard.</p>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- PACKING TAB -->
+  <div id="packing" class="tab-content">
+
+    <details open>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">badge</span> Travel Essentials & Docs</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="check-item"><input type="checkbox" id="k1" onchange="toggleCheck(this)"><label for="k1">Driver's License & Wallet</label></div>
+        <div class="check-item"><input type="checkbox" id="k2" onchange="toggleCheck(this)"><label for="k2">Flume Gorge Reservation Confirmation</label></div>
+        <div class="check-item"><input type="checkbox" id="k3" onchange="toggleCheck(this)"><label for="k3">Airbnb Keypad Code (from app/email)</label></div>
+      </div>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">checkroom</span> Clothing & Rain Gear</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="check-item"><input type="checkbox" id="c1" onchange="toggleCheck(this)"><label for="c1">Lightweight Rain Shell / Jacket (60% rain Sat)</label></div>
+        <div class="check-item"><input type="checkbox" id="c2" onchange="toggleCheck(this)"><label for="c2">Warm layers / Fleece / Quarter-zips (48°F mornings)</label></div>
+        <div class="check-item"><input type="checkbox" id="c3" onchange="toggleCheck(this)"><label for="c3">Comfortable walking shoes / sneakers</label></div>
+        <div class="check-item"><input type="checkbox" id="c4" onchange="toggleCheck(this)"><label for="c4">River water shoes / sandals</label></div>
+      </div>
+    </details>
+
+    <details open>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">sports_motorsports</span> Racetrack & Outdoor Gear</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="check-item"><input type="checkbox" id="g1" onchange="toggleCheck(this)"><label for="g1">Ear protection / Noise muffs (for Racetrack Sat 6PM)</label></div>
+        <div class="check-item"><input type="checkbox" id="g2" onchange="toggleCheck(this)"><label for="g2">Stadium seat cushions / bleacher blanket</label></div>
+        <div class="check-item"><input type="checkbox" id="g3" onchange="toggleCheck(this)"><label for="g3">Sunglasses & Safety glasses</label></div>
+        <div class="check-item"><input type="checkbox" id="g4" onchange="toggleCheck(this)"><label for="g4">Refillable water bottles</label></div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">pets</span> Dog Supplies</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="check-item"><input type="checkbox" id="d1" onchange="toggleCheck(this)"><label for="d1">Dog Food & Bowls</label></div>
+        <div class="check-item"><input type="checkbox" id="d2" onchange="toggleCheck(this)"><label for="d2">Leashes & Collars</label></div>
+        <div class="check-item"><input type="checkbox" id="d3" onchange="toggleCheck(this)"><label for="d3">Dog Towels (dark towels ONLY — no white linens!)</label></div>
+        <div class="check-item"><input type="checkbox" id="d4" onchange="toggleCheck(this)"><label for="d4">Waste Bags</label></div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-title"><span class="material-symbols-outlined icon-main">devices</span> Electronics</span>
+        <span class="material-symbols-outlined chevron">expand_more</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="check-item"><input type="checkbox" id="e1" onchange="toggleCheck(this)"><label for="e1">Phone Chargers</label></div>
+        <div class="check-item"><input type="checkbox" id="e2" onchange="toggleCheck(this)"><label for="e2">Nespresso Pods (for Master bedroom coffee bar)</label></div>
+        <div class="check-item"><input type="checkbox" id="e3" onchange="toggleCheck(this)"><label for="e3">Portable Power Bank</label></div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- GUIDE & MAP TAB -->
+  <div id="guide" class="tab-content">
+    
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46067.143719047915!2d-71.71182285!3d44.03222535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb46337ba7733ab%3A0x889d1ee5ef34b17e!2sNorth%20Woodstock%2C%20NH%2003262!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus" allowfullscreen loading="lazy"></iframe>
+    </div>
+
+    <a href="https://www.google.com/maps/search/attractions+near+North+Woodstock+NH" target="_blank" class="btn-action">
+      <span class="material-symbols-outlined">open_in_new</span> Open North Woodstock Area in Google Maps
+    </a>
+
+    <div style="margin-top: 16px;">
+      <h3><span class="material-symbols-outlined">explore</span> Area Attractions & Distances</h3>
+      <p>• <strong>Cascade Park:</strong> 130 Main St (1 min / 0.2 mi)</p>
+      <p>• <strong>White Mountain Motorsports Park:</strong> 463 Daniel Webster Hwy (2 min / 1.1 mi)</p>
+      <p>• <strong>Pirate's Cove Mini Golf:</strong> 127 Main St, Lincoln (2 min / 1.3 mi)</p>
+      <p>• <strong>Gypsy Cafe:</strong> 117 Main St, Lincoln (4 min / 1.8 mi)</p>
+      <p>• <strong>Clark's Bears:</strong> 110 Daniel Webster Hwy, Lincoln (4 min / 2.2 mi)</p>
+      <p>• <strong>Flume Gorge:</strong> 852 Daniel Webster Hwy, Lincoln (7 min / 4.8 mi)</p>
+      <p>• <strong>Lost River Gorge & Caves:</strong> 1712 Lost River Rd (9 min / 5.8 mi)</p>
+      <p>• <strong>Schilling Beer Co.:</strong> 18 Mill St, Littleton (30 min / 24 mi)</p>
+      <p>• <strong>Waterville Valley Square:</strong> 33 Village Rd (25 min / 18 mi)</p>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM NAVIGATION BAR -->
+  <nav>
+    <button class="nav-btn active" onclick="switchTab('logistics', this)">
+      <span class="material-symbols-outlined">info</span>
+      Logistics
+    </button>
+    <button class="nav-btn" onclick="switchTab('itinerary', this)">
+      <span class="material-symbols-outlined">calendar_today</span>
+      Itinerary
+    </button>
+    <button class="nav-btn" onclick="switchTab('dwellings', this)">
+      <span class="material-symbols-outlined">cabin</span>
+      House
+    </button>
+    <button class="nav-btn" onclick="switchTab('packing', this)">
+      <span class="material-symbols-outlined">checklist</span>
+      Packing
+    </button>
+    <button class="nav-btn" onclick="switchTab('guide', this)">
+      <span class="material-symbols-outlined">map</span>
+      Guide
+    </button>
+  </nav>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function toggleCheck(checkbox) {
+      const parent = checkbox.closest('.check-item');
+      if (checkbox.checked) {
+        parent.classList.add('done');
+      } else {
+        parent.classList.remove('done');
+      }
+      localStorage.setItem('nh_pack_' + checkbox.id, checkbox.checked);
+    }
+
+    function copyText(text) {
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      alert('Copied to clipboard: ' + text);
+    }
+
+    // Load saved checklist state on open
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.check-item input').forEach(input => {
+        const checked = localStorage.getItem('nh_pack_' + input.id) === 'true';
+        input.checked = checked;
+        if (checked) input.closest('.check-item').classList.add('done');
+      });
+    });
+  </script>
+</body>
+</html>
